@@ -1,13 +1,13 @@
-＃プロジェクト名
+#プロジェクト名
 
 COACHTECH お問い合せフォーム
 
-＃アプリケーション概要
+#アプリケーション概要
 
 本アプリケーションは、プロジェクトに関するお問い合わせを受け付けるためのフォームです。
 ユーザーはお問い合わせ内容を入力し、確認画面で内容を確認してから送信できます。入力内容のバリデーションを行い、質問・要望・不具合報告・ご意見などのお問い合わせ情報をデータベースに保存します。
 
-＃実装した機能の概要説明
+#実装した機能の概要説明
 
 1.お問い合わせ機能
 ・お問い合わせ内容を入力するフォーム
@@ -29,51 +29,7 @@ Bladeテンプレートを使用してログイン画面や管理画面を作成
 
 ログイン後に管理画面へ遷移すること、画面を再読み込みしてもログイン状態が維持されること、ログアウト後は管理画面へアクセスできないことをブラウザで確認しました。
 
-＃ER図
-
-erDiagram
-CATEGORIES ||--o{ CONTACTS : "分類する"
-CONTACTS ||--o{ CONTACT_TAG : "関連付ける"
-TAGS ||--o{ CONTACT_TAG : "関連付ける"
-
-    CATEGORIES {
-        bigint id PK
-        varchar content
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    CONTACTS {
-        bigint id PK
-        bigint category_id FK
-        varchar first_name
-        varchar last_name
-        tinyint gender
-        varchar email
-        varchar tel
-        varchar address
-        varchar building
-        varchar detail
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    TAGS {
-        bigint id PK
-        varchar name UK
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    CONTACT_TAG {
-        bigint id PK
-        bigint contact_id FK
-        bigint tag_id FK
-        timestamp created_at
-        timestamp updated_at
-    }
-
-＃環境構築手順
+#環境構築手順
 
 1.動作環境(使用技術)
 本アプリケーションは、以下の環境で動作します。
@@ -241,9 +197,64 @@ phpMyAdminでは、設定したデータベースに接続し、
 
 以上で環境構築は完了です。
 
-＃APIエンドポイント一覧
+## ER図
 
-＃環境開発URL
+```mermaid
+erDiagram
+    USERS {
+        bigint id PK
+        string name
+        string email UK
+        timestamp email_verified_at
+        string password
+        string remember_token
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    CATEGORIES {
+        bigint id PK
+        string content
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    CONTACTS {
+        bigint id PK
+        bigint category_id FK
+        string first_name
+        string last_name
+        string email
+        tinyint gender
+        string tel
+        string address
+        string building
+        string detail
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    TAGS {
+        bigint id PK
+        string name UK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    CONTACT_TAG {
+        bigint id PK
+        bigint contact_id FK
+        bigint tag_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    CATEGORIES ||--o{ CONTACTS : "分類する"
+    CONTACTS ||--o{ CONTACT_TAG : "関連付ける"
+    TAGS ||--o{ CONTACT_TAG : "関連付ける"
+```
+
+#環境開発URL
 
 お問い合わせフォーム
 入力画面・トップページ
@@ -255,5 +266,5 @@ phpMyAdmin
 
 http://localhost:8080
 
-＃作成者
+#作成者
 角庵　真沙子
